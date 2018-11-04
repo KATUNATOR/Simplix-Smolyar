@@ -27,6 +27,7 @@ namespace WindowsFormsApp1
             col.HeaderText = s;
             col.Name = s;
             dataGridView1.Columns.Insert(J, col);
+            Console.WriteLine("Hello world");
             
         }
 
