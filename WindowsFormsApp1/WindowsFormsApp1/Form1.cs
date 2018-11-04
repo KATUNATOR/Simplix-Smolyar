@@ -18,24 +18,31 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
-        private int J { get => dataGridView1.ColumnCount - 2; }
+        private int J { get => dataGridView1.ColumnCount - 1; }
 
         
 
         private void button1_Click(object sender, EventArgs e)
         {
+            int j = J;
             string s = "x" + Convert.ToString(J + 1);
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn fcol = new DataGridViewTextBoxColumn();
             col.HeaderText = s;
             col.Name = s;
-            dataGridView1.Columns.Insert(J, col);
-            Console.WriteLine("Hello world");
+            fcol.HeaderText = s;
+            fcol.Name = "f" + s;
+            dataGridView1.Columns.Insert(j, col);
+            dataGridView2.Columns.Insert(j, fcol);
+            
             
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dataGridView1.Columns.Remove("x" + Convert.ToString(J));
+            int j = J;
+            dataGridView1.Columns.Remove("x" + Convert.ToString(j));
+            dataGridView2.Columns.Remove("fx" + Convert.ToString(j));
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -45,12 +52,14 @@ namespace WindowsFormsApp1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Excel._Worksheet sheet1;
-            for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                for (int j = 0; i < dataGridView1.ColumnCount; i++)
+            double[,] task = new double[dataGridView1.RowCount+1, dataGridView2.ColumnCount];
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
                 {
-                    sheet1.Cells[i, j] = dataGridView1[i, j];
+                    task[i, j] = Convert.ToDouble(dataGridView1[i, j]);
                 }
+            for (int j = 0; j < dataGridView2.ColumnCount; j++)
+                task[dataGridView1.RowCount, j] = Convert.ToDouble(dataGridView2[0, j]);
         }
     }
 }
